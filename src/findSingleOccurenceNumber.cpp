@@ -15,6 +15,16 @@ There are better ways of solving the problem than a brute-force solution which i
 complexity .
 */
 
+#include<stddef.h>
 int findSingleOccurenceNumber(int *A, int len) {
-	return -1;
+	int temp, iter, one = 0, two = 0;
+	if (A == NULL || len<0)	return -1;
+	for (iter = 0; iter<len; iter++){
+		two = two | (one&A[iter]);
+		one = A[iter] ^ one;
+		temp = ~(one&two);
+		one = one & temp;
+		two = two&temp;
+	}
+	return one;
 }
